@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,12 +23,12 @@ public class ProdutoModel {
 		@GeneratedValue(strategy = GenerationType.IDENTITY) 
 		private Long id; 
 
-		@NotBlank(message = "O atributo nome é obrigatório e não pode utilizar espaços em branco!") 
-		@Size(min = 4, max = 100, message = "O atributo nome deve conter no mínimo 05 e no máximo 100 caracteres")
+		@NotNull(message = "O atributo nome é obrigatório!") 
+		@Size(min = 4, message = "O atributo nome deve conter no mínimo 05 e no máximo 100 caracteres")
 		private String nomeProduto;
 		
-		@NotBlank(message = "O atributo fabricante é obrigatório e não pode utilizar espaços em branco!") 
-		@Size(min = 4, max = 100, message = "O atributo fabricante deve conter no mínimo 05 e no máximo 100 caracteres")
+		@NotNull(message = "O atributo fabricante é obrigatório!") 
+		@Size(min = 4, message = "O atributo fabricante deve conter no mínimo 05 e no máximo 100 caracteres")
 		private String fabricante;
 		
 		@UpdateTimestamp
@@ -43,6 +42,11 @@ public class ProdutoModel {
 		@ManyToOne
 		@JsonIgnoreProperties("produto")
 		private CategoriaModel categoria;
+		
+		@ManyToOne
+		@JsonIgnoreProperties("produto")
+		private UsuarioModel usuario;
+		
 
 		public Long getId() {
 			return id;
@@ -99,4 +103,14 @@ public class ProdutoModel {
 		public void setCategoria(CategoriaModel categoria) {
 			this.categoria = categoria;
 		}
+
+		public UsuarioModel getUsuario() {
+			return usuario;
+		}
+
+		public void setUsuario(UsuarioModel usuario) {
+			this.usuario = usuario;
+		}
+		
+		
 }
